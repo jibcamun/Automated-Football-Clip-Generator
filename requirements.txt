@@ -1,0 +1,5 @@
+moviepy==1.0.3
+google-auth==2.20.0
+google-auth-oauthlib==1.2.0
+google-api-python-client==2.84.0
+tqdm==4.66.1
