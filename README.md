@@ -1,4 +1,4 @@
-# Football Shorts Maker — Streamlit UI & YouTube Uploader
+# Football Shorts Maker: Streamlit UI & YouTube Uploader
 
 A small web app that builds vertical (9:16) football "shorts" from uploaded clips, optionally adds background music, and uploads the result to YouTube. This repository includes a CLI builder and a Streamlit-based web UI that performs video processing (via moviepy/ffmpeg) and uploads via the YouTube Data API.
 
