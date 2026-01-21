@@ -1,42 +1,30 @@
-# Football Shorts Maker & Uploader
+```markdown
+# Streamlit UI for Football Shorts Maker
 
-This simple app assembles vertical (9:16) football shorts from source clips and uploads them to YouTube as Shorts.
+This Streamlit app wraps the video-building and YouTube upload flow in a browser UI.
 
-Requirements
-- Python 3.8+
-- FFmpeg (moviepy depends on ffmpeg). Install ffmpeg on your system.
-- A Google Cloud project with YouTube Data API v3 enabled and OAuth 2.0 Client ID (Desktop app).
+Quick start:
+1. Ensure you have `ffmpeg` installed and on PATH.
+2. Place `client_secrets.json` (Google OAuth Desktop credentials) next to the code.
+3. Install dependencies:
+   ```bash
+   python -m pip install -r requirements.txt
+   ```
+4. Run the app:
+   ```bash
+   streamlit run streamlit_app.py
+   ```
 
-Install dependencies:
-```bash
-python -m pip install -r requirements.txt
+How it works:
+- Upload multiple video clips in the web UI.
+- Optionally upload a music file.
+- Click "Build Short" to crop/resize and concatenate clips into a 1080x1920 MP4, capped at 60s.
+- Preview the generated short in the browser.
+- Click "Upload to YouTube" to perform OAuth and upload the video. On first upload the app will open a browser window for Google OAuth consent and save credentials to `token.json`.
+
+Notes:
+- The app uses `run_local_server` OAuth flow for a smoother web experience.
+- Make sure the YouTube Data API v3 is enabled for your Google Cloud project and that your OAuth client includes the correct redirect URIs (local server defaults are used by `google-auth-oauthlib`).
+- Respect copyright for clips and music before uploading.
+
 ```
-
-Setup Google credentials
-1. Create OAuth 2.0 Client ID (Desktop) in Google Cloud Console.
-2. Download the `client_secrets.json` and place it next to the code.
-3. On first run the app will prompt for OAuth and will save credentials to `token.json`.
-
-Usage
-```bash
-python main.py \
-  --input-dir ./clips \
-  --output out_short.mp4 \
-  --title "Amazing Football Short #Shorts" \
-  --description "A short compilation. #Shorts" \
-  --tags "football,goals,highlights" \
-  --music background.mp3
-```
-
-Notes
-- The app crops/resizes clips to 1080x1920 (vertical). Final duration is capped at 60s.
-- To make the upload work, enable the YouTube Data API and use the `client_secrets.json`.
-- For privacy: you can set `--privacy private|unlisted|public`. Default is `private`.
-- Always respect copyrights for clips and music.
-
-Files included:
-- `main.py` — main CLI
-- `video_utils.py` — processing helpers
-- `upload_youtube.py` — uploader and auth
-- `config.example.json` — example configuration
-- `requirements.txt` — pip deps
